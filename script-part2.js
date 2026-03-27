@@ -2,11 +2,12 @@
  * MCUverse — JavaScript Part 2
  * ════════════════════════════════════════════════════
  * Modules:
- *  1. Movie Data Store (PHP replacement for demo)
- *  2. Modal System (open / close / animate)
- *  3. Phases Section Reveal
- *  4. Characters Section Reveal
- *  5. Infinity Gems tracker (Easter Egg)
+ *  1. API Layer   — fetch /api/movies & /api/characters từ CodeIgniter backend
+ *  2. Render      — renderMoviesGrid() và renderCharactersGrid()
+ *  3. Modal System — open / close / animate
+ *  4. Phases Section Reveal
+ *  5. Characters Section Reveal
+ *  6. Infinity Gems tracker (Easter Egg)
  * ════════════════════════════════════════════════════
  */
 
@@ -14,66 +15,193 @@
     'use strict';
 
     /* ═══════════════════════════════════════════════════
-       1. MOVIE DATA STORE
-       In production: này sẽ được PHP inject qua JSON hoặc data-attributes
-       Format: movieId -> object
+       1. API LAYER — MOVIE_DB được build từ fetch API
     ═══════════════════════════════════════════════════ */
-    const MOVIE_DB = {
-        'iron-man': {
-            title: 'Iron Man',
-            year: 2008,
-            phase: 1,
-            type: 'Phim điện ảnh',
-            duration: '126 phút',
-            rating: 8.0,
-            order: '01',
-            boxOffice: '$585M',
-            director: 'Jon Favreau',
-            cast: 'Robert Downey Jr., Gwyneth Paltrow, Jeff Bridges, Terrence Howard',
-            tagline: '"Genius. Billionaire. Playboy. Philanthropist."',
-            desc: 'Tony Stark, một thiên tài chế tạo vũ khí và tỷ phú tự kiêu, bị bắt cóc bởi tổ chức khủng bố và buộc phải chế tạo vũ khí hủy diệt. Thay vào đó, ông xây dựng một bộ giáp chiến đấu để thoát khỏi tù giam — và sau đó hoàn thiện nó thành Iron Man, khởi động vũ trụ MCU.',
-            bgColor: '#C0392B',
-            connections: ['The Incredible Hulk', 'Iron Man 2', 'The Avengers', 'Avengers: Endgame'],
-            watchUrl: 'https://disneyplus.com',
-            trailerUrl: 'https://youtube.com',
-        },
-        'incredible-hulk': {
-            title: 'The Incredible Hulk',
-            year: 2008,
-            phase: 1,
-            type: 'Phim điện ảnh',
-            duration: '112 phút',
-            rating: 6.7,
-            order: '02',
-            boxOffice: '$264M',
-            director: 'Louis Leterrier',
-            cast: 'Edward Norton, Liv Tyler, Tim Roth, William Hurt',
-            tagline: '"This is not who I am."',
-            desc: 'Bruce Banner lang thang khắp thế giới để tìm cách chữa khỏi tình trạng biến đổi thành Hulk khi cơn giận nổi lên. Trong khi đó, Tướng Thaddeus Ross truy đuổi anh để dùng khả năng đó cho quân đội. Emil Blonsky trở thành Abomination.',
-            bgColor: '#27AE60',
-            connections: ['The Avengers', 'Avengers: Age of Ultron', 'Thor: Ragnarok'],
-            watchUrl: 'https://disneyplus.com',
-            trailerUrl: 'https://youtube.com',
-        },
-        'iron-man-2': {
-            title: 'Iron Man 2',
-            year: 2010,
-            phase: 1,
-            type: 'Phim điện ảnh',
-            duration: '124 phút',
-            rating: 7.0,
-            order: '03',
-            boxOffice: '$624M',
-            director: 'Jon Favreau',
-            cast: 'Robert Downey Jr., Mickey Rourke, Gwyneth Paltrow, Don Cheadle, Scarlett Johansson',
-            tagline: '"I am Iron Man."',
-            desc: 'Tony Stark tiết lộ danh tính là Iron Man với thế giới và phải đối mặt với sức ép từ chính phủ, đồng thời đương đầu với Ivan Vanko/Whiplash, kẻ thù mang mối hận thù từ cha mình. Chất độc palladium trong lồng ngực từ từ giết chết anh.',
-            bgColor: '#E74C3C',
-            connections: ['Iron Man', 'Thor', 'The Avengers', 'Black Widow'],
-            watchUrl: 'https://disneyplus.com',
-            trailerUrl: 'https://youtube.com',
-        },
-    };
+
+    // MOVIE_DB bắt đầu rỗng, sẽ được populate sau khi fetch xong
+    const MOVIE_DB = {};
+
+    // Lấy base URL từ biến global được inject bởi CI3 View (main.php)
+    // Fallback về relative path nếu dùng trực tiếp file HTML tĩnh
+    const API_BASE = (window.MCU_API) || '/api';
+
+    /**
+     * Gọi song song 2 API, render UI, build MOVIE_DB cho modal.
+     */
+    async function loadFromAPI() {
+        try {
+            const [moviesRes, charsRes] = await Promise.all([
+                fetch(API_BASE + '/movies'),
+                fetch(API_BASE + '/characters'),
+            ]);
+
+            if (!moviesRes.ok || !charsRes.ok) {
+                throw new Error('API response not ok');
+            }
+
+            const moviesJson = await moviesRes.json();
+            const charsJson  = await charsRes.json();
+
+            const movies = moviesJson.data || [];
+            const chars  = charsJson.data  || [];
+
+            // Render UI
+            renderMoviesGrid(movies);
+            renderCharactersGrid(chars);
+
+            // Build MOVIE_DB (slug → object) cho modal system
+            movies.forEach(m => {
+                MOVIE_DB[m.slug] = {
+                    title:      m.title,
+                    year:       m.year,
+                    phase:      m.phase_num,
+                    type:       m.type === 'series' ? 'Disney+ Series' : 'Phim điện ảnh',
+                    duration:   m.duration,
+                    rating:     parseFloat(m.rating),
+                    order:      String(m.view_order).padStart(2, '0'),
+                    boxOffice:  m.box_office,
+                    director:   m.director,
+                    cast:       m.cast_list,
+                    tagline:    m.tagline,
+                    desc:       m.description,
+                    bgColor:    m.bg_color,
+                    connections: [],   // có thể mở rộng sau
+                    watchUrl:   'https://disneyplus.com',
+                    trailerUrl: 'https://youtube.com',
+                };
+            });
+
+            // Cập nhật counter trong header + hero-badge
+            const movieCount = movies.filter(m => m.type === 'movie').length;
+            const seriesCount = movies.filter(m => m.type === 'series').length;
+            const filterCount = document.getElementById('filter-count');
+            if (filterCount) filterCount.textContent = `${movies.length} bộ phim & series`;
+            const heroBadge = document.getElementById('hero-badge-num');
+            if (heroBadge) heroBadge.textContent = movieCount;
+            updateStatCounters(movieCount, seriesCount);
+
+            // Reinitialize các animation reveal sau khi render xong
+            initCharactersReveal();
+
+        } catch (err) {
+            console.warn('[MCUverse] API fetch failed, falling back to static mode:', err);
+            // Giữ nguyên content HTML tĩnh từ index.html nếu API lỗi
+            const moviesGrid = document.getElementById('movies-grid');
+            if (moviesGrid && moviesGrid.children.length <= 1) {
+                moviesGrid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#999;padding:40px">Không thể kết nối API. Kiểm tra XAMPP &amp; CodeIgniter.</p>';
+            }
+        }
+    }
+
+    /* ─────────────────────────────────────────────────
+       2a. RENDER: Movies Grid
+    ───────────────────────────────────────────────── */
+    function renderMoviesGrid(movies) {
+        const grid = document.getElementById('movies-grid');
+        if (!grid) return;
+
+        if (!movies.length) {
+            grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#999;padding:40px">Không có phim nào.</p>';
+            return;
+        }
+
+        grid.innerHTML = movies.map(m => {
+            const isEndgame  = m.slug === 'avengers-endgame';
+            const isFeatured = m.rating >= 8.2 && !isEndgame;
+            const typeBadge  = m.type === 'series'
+                ? `<span class="movie-card-type-badge movie-card-type-badge--series">Series</span>`
+                : `<span class="movie-card-type-badge">Phim</span>`;
+            const ratingBarStyle = isEndgame
+                ? `width:${m.rating * 10}%;background:linear-gradient(90deg,var(--clr-red),var(--clr-gold))`
+                : `width:${m.rating * 10}%`;
+            const ratingStyle = isEndgame ? 'style="color:var(--clr-gold)"' : '';
+            const featuredBadge = isEndgame
+                ? `<div class="movie-card-featured-badge" style="background:var(--clr-gold);color:#000;">Huyền thoại</div>`
+                : isFeatured
+                ? `<div class="movie-card-featured-badge">Đỉnh cao</div>`
+                : '';
+            const glowStyle = isEndgame ? 'style="box-shadow:0 0 40px rgba(245,200,66,0.2)"' : '';
+
+            return `
+            <article class="movie-card${isFeatured ? ' movie-card--featured' : ''}${isEndgame ? ' movie-card--endgame' : ''}"
+                     data-phase="${m.phase_num}" data-type="${m.type}" data-tilt data-movie-id="${m.slug}">
+                <div class="movie-card-inner">
+                    <div class="movie-card-poster">
+                        <div class="poster-placeholder poster-placeholder--card"
+                             style="--ph-color: ${m.bg_color}${m.slug === 'avengers-endgame' ? '; border:1px solid rgba(226,54,54,0.3)' : ''};"></div>
+                        <div class="movie-card-overlay"></div>
+                        <div class="movie-card-phase-badge">Phase ${m.phase_num}</div>
+                        ${featuredBadge}
+                    </div>
+                    <div class="movie-card-info">
+                        <div class="movie-card-meta-row">
+                            <span class="movie-card-year">${m.year}</span>
+                            ${typeBadge}
+                        </div>
+                        <h3 class="movie-card-title">${m.title}</h3>
+                        <div class="movie-card-rating">
+                            <div class="rating-stars"><div class="rating-fill" style="${ratingBarStyle}"></div></div>
+                            <span class="rating-score" ${ratingStyle}>${m.rating || '—'}</span>
+                        </div>
+                        <div class="movie-card-actions">
+                            <button class="card-btn card-btn--watch" data-open-modal="${m.slug}">
+                                <svg width="12" height="12" viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11" fill="currentColor" /></svg>
+                                Chi tiết
+                            </button>
+                            <button class="card-btn card-btn--info" data-slug="${m.slug}">Lưu</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="movie-card-glow" ${glowStyle}></div>
+            </article>`;
+        }).join('');
+
+        // Kích hoạt tilt effect nếu script.js có initTilt
+        if (typeof initTilt === 'function') initTilt();
+    }
+
+    /* ─────────────────────────────────────────────────
+       2b. RENDER: Characters Grid
+    ───────────────────────────────────────────────── */
+    function renderCharactersGrid(characters) {
+        const grid = document.getElementById('characters-grid');
+        if (!grid) return;
+
+        if (!characters.length) {
+            grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#999;padding:40px">Không có nhân vật nào.</p>';
+            return;
+        }
+
+        grid.innerHTML = characters.map(c => {
+            const phaseDots = c.phases.map((active, i) =>
+                `<span class="char-phase-dot${active ? ' active' : ''}" title="Phase ${i + 1}"></span>`
+            ).join('');
+
+            return `
+            <div class="char-card" data-char="${c.slug}" style="--char-clr: ${c.bg_color};">
+                <div class="char-card-bg" style="--char-clr: ${c.bg_color};"></div>
+                <div class="char-card-avatar">
+                    <div class="char-avatar-placeholder" style="--av-clr: ${c.bg_color};">${c.avatar_initials}</div>
+                </div>
+                <div class="char-card-info">
+                    <h4 class="char-name">${c.name}</h4>
+                    <p class="char-alter">${c.alter_ego}</p>
+                    <div class="char-phases">${phaseDots}</div>
+                    <p class="char-status char-status--${c.status}">${c.status_label}</p>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    /* ─────────────────────────────────────────────────
+       2c. Update hero stat counters after data loads
+    ───────────────────────────────────────────────── */
+    function updateStatCounters(movieCount, seriesCount) {
+        const statMovies  = document.getElementById('stat-movies');
+        const statSeries  = document.getElementById('stat-series');
+        if (statMovies) { statMovies.dataset.count = movieCount;  statMovies.textContent = movieCount; }
+        if (statSeries) { statSeries.dataset.count = seriesCount; statSeries.textContent = seriesCount; }
+    }
 
 
     /* ═══════════════════════════════════════════════════
@@ -451,12 +579,16 @@
     ═══════════════════════════════════════════════════ */
     function init() {
         initPhasesReveal();
-        initCharactersReveal();
+        // initCharactersReveal() sẽ được gọi LẠI sau loadFromAPI()
+        // để đảm bảo các .char-card đã được render vào DOM
         initInfinityTracker();
         initFilterTabsDrag();
 
+        // === GỌI API — tải data động từ CodeIgniter backend ===
+        loadFromAPI();
+
         console.log(
-            '%cMCUverse Part 2 loaded ✓',
+            '%cMCUverse Part 2 loaded ✓ (API mode)',
             'color: #00d4ff; font-family: monospace; font-size: 13px; font-weight: bold;'
         );
     }
