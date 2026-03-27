@@ -13,10 +13,13 @@ class Welcome extends CI_Controller
         parent::__construct();
         // Load helper 'url' để dùng base_url() trong view
         $this->load->helper('url');
+        $this->load->model('Mcu_model');
     }
 
     public function index()
     {
-        $this->load->view('main');
+        $data['phases'] = $this->Mcu_model->get_all_phases();
+        $data['movies'] = $this->Mcu_model->get_all_movies();
+        $this->load->view('main', $data);
     }
 }
