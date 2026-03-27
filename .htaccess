@@ -1,14 +1,14 @@
-# Apache .htaccess cho CodeIgniter 3
-# Đặt file này tại: c:\xampp\htdocs\php\cuoi ki\.htaccess
-
+Options -Indexes
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /php/cuoi%20ki/
 
-    # Nếu request là file/folder thực sự → không rewrite
+    # Không rewrite nếu là file/thư mục thực
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
 
-    # Còn lại → chuyển về index.php của CodeIgniter
+    # Chuyển mọi request về index.php của CodeIgniter
     RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
+
+# Nếu mod_rewrite không hoạt động, dùng URL dạng:
+# localhost/php/cuoi ki/index.php/api/movies

@@ -1,78 +1,163 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
- | -------------------------------------------------------------------
- |  BASE URL
- | -------------------------------------------------------------------
- | Chỉnh lại nếu tên thư mục của bạn khác "cuoi ki"
- */
+|--------------------------------------------------------------------------
+| Base Site URL
+|--------------------------------------------------------------------------
+*/
 $config['base_url'] = 'http://localhost/php/cuoi%20ki/';
 
-$config['index_page']   = '';        // Bỏ trống khi dùng .htaccess
-$config['uri_protocol'] = 'AUTO';
+/*
+|--------------------------------------------------------------------------
+| Index File
+|--------------------------------------------------------------------------
+*/
+$config['index_page'] = 'index.php';  // Rỗng khi dùng .htaccess
 
 /*
- | Cấu hình ký tự cho URL
- */
+|--------------------------------------------------------------------------
+| URI PROTOCOL
+|--------------------------------------------------------------------------
+*/
+$config['uri_protocol'] = 'PATH_INFO';
+
+/*
+|--------------------------------------------------------------------------
+| Default Language
+|--------------------------------------------------------------------------
+*/
+$config['language'] = 'english';
+
+/*
+|--------------------------------------------------------------------------
+| Default Character Set
+|--------------------------------------------------------------------------
+*/
 $config['charset'] = 'UTF-8';
 
 /*
- | Log lỗi (0 = tắt, 1 = Error, 2 = Debug)
- */
-$config['log_threshold'] = 1;
-$config['log_path']      = '';
+|--------------------------------------------------------------------------
+| Enable/Disable System Hooks
+|--------------------------------------------------------------------------
+*/
+$config['enable_hooks'] = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Class Extension Prefix
+|--------------------------------------------------------------------------
+*/
+$config['subclass_prefix'] = 'MY_';
+
+/*
+|--------------------------------------------------------------------------
+| Composer auto-loading
+|--------------------------------------------------------------------------
+*/
+$config['composer_autoload'] = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Allowed URL Characters
+|--------------------------------------------------------------------------
+*/
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+
+/*
+|--------------------------------------------------------------------------
+| Enable Query Strings
+|--------------------------------------------------------------------------
+*/
+$config['allow_get_array']         = TRUE;
+$config['enable_query_strings']    = FALSE;
+$config['controller_trigger']      = 'c';
+$config['function_trigger']        = 'm';
+$config['directory_trigger']       = 'd';
+
+/*
+|--------------------------------------------------------------------------
+| Error Logging Threshold
+|--------------------------------------------------------------------------
+| Bật level 4 (ALL) để debug, sau đó đặt lại 1
+*/
+$config['log_threshold'] = 4;
+$config['log_path'] = APPPATH . 'logs/';
 $config['log_file_extension'] = '';
 $config['log_file_permissions'] = 0644;
 $config['log_date_format'] = 'Y-m-d H:i:s';
 
 /*
- | Các config bắt buộc khác
- */
-$config['encryption_key'] = 'mcu-verse-secret-key-2025';
-$config['sess_driver']    = 'files';
-$config['sess_cookie_name'] = 'ci_session';
-$config['sess_expiration'] = 7200;
-$config['sess_save_path'] = NULL;
-$config['sess_match_ip'] = FALSE;
-$config['sess_time_to_update'] = 300;
-$config['sess_regenerate_destroy'] = FALSE;
-
-$config['cookie_prefix']   = '';
-$config['cookie_domain']   = '';
-$config['cookie_path']     = '/';
-$config['cookie_secure']   = FALSE;
-$config['cookie_httponly']  = FALSE;
-
-$config['csrf_protection'] = FALSE;
-$config['csrf_token_name'] = 'csrf_test_name';
-$config['csrf_cookie_name'] = 'csrf_cookie_name';
-$config['csrf_expire']     = 7200;
-$config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array();
-
-$config['compress_output'] = FALSE;
-$config['time_reference']  = 'local';
-$config['rewrite_short_tags'] = FALSE;
-$config['error_views_path'] = '';
+|--------------------------------------------------------------------------
+| Cache Directory Path
+|--------------------------------------------------------------------------
+*/
 $config['cache_path'] = '';
 $config['cache_query_string'] = FALSE;
 $config['uncacheable_methods'] = array('POST');
 
-$config['subclass_prefix'] = 'MY_';
-$config['composer_autoload'] = FALSE;
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
-$config['allow_get_array'] = TRUE;
-$config['enable_hooks'] = FALSE;
-$config['output_compression'] = FALSE;
-$config['global_xss_filtering'] = FALSE;
-$config['url_suffix'] = '';
-$config['language'] = 'english';
-$config['language_file'] = '';
-$config['menu_items'] = array();
-$config['use_page_cache'] = FALSE;
-$config['cache_only'] = FALSE;
+/*
+|--------------------------------------------------------------------------
+| Encryption Key
+|--------------------------------------------------------------------------
+*/
+$config['encryption_key'] = 'MCUverse2025SecretKey';
+
+/*
+|--------------------------------------------------------------------------
+| Session Variables
+|--------------------------------------------------------------------------
+*/
+$config['sess_driver']            = 'files';
+$config['sess_cookie_name']       = 'ci_session';
+$config['sess_expiration']        = 7200;
+$config['sess_save_path']         = NULL;
+$config['sess_match_ip']          = FALSE;
+$config['sess_time_to_update']    = 300;
+$config['sess_regenerate_destroy'] = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Cookie Related Variables
+|--------------------------------------------------------------------------
+*/
+$config['cookie_prefix']   = '';
+$config['cookie_domain']   = '';
+$config['cookie_path']     = '/';
+$config['cookie_secure']   = FALSE;
+$config['cookie_httponly'] = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Cross Site Request Forgery
+|--------------------------------------------------------------------------
+*/
+$config['csrf_protection']   = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Output Compression
+|--------------------------------------------------------------------------
+*/
+$config['compress_output'] = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Master Time Reference
+|--------------------------------------------------------------------------
+*/
+$config['time_reference'] = 'local';
+
+/*
+|--------------------------------------------------------------------------
+| Rewrite PHP Short Tags
+|--------------------------------------------------------------------------
+*/
+$config['rewrite_short_tags'] = FALSE;
+
+/*
+|--------------------------------------------------------------------------
+| Reverse Proxy IPs
+|--------------------------------------------------------------------------
+*/
 $config['proxy_ips'] = '';
-$config['reverse_proxy_ips'] = '';
-$config['reverse_proxy_header'] = 'X-Forwarded-For';
-$config['uncacheable_file_extensions'] = '';

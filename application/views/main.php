@@ -372,19 +372,630 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <!-- Timeline section giữ nguyên từ index.html — quá dài nên giữ cứng -->
     <!-- Bạn có thể render động từ PHP nếu muốn sau này -->
-    <section class="timeline-section" id="timeline">
+        <section class="timeline-section" id="timeline">
         <div class="section-header">
             <p class="section-eyebrow">Chronological Order</p>
             <h2 class="section-title">Lộ trình xem phim</h2>
             <p class="section-desc">Theo thứ tự thời gian trong vũ trụ MCU</p>
         </div>
+
         <div class="timeline-container" id="timeline-container">
-            <div class="timeline-spine"><div class="timeline-spine-fill" id="timeline-spine-fill"></div></div>
-            <!-- Timeline items được giữ hardcode (quá nhiều node) -->
-            <!-- Trong đồ án thực tế: dùng foreach PHP loop để render -->
-            <p style="text-align:center;color:var(--clr-text-muted);padding:40px 0;">
-                🎬 Timeline render từ database — xem <code>index.html</code> để lấy cấu trúc HTML mẫu.
-            </p>
+            <div class="timeline-spine">
+                <div class="timeline-spine-fill" id="timeline-spine-fill"></div>
+            </div>
+
+            <!-- ─────────────────── PHASE 1 ─── -->
+            <div class="timeline-phase" data-phase="1">
+                <div class="timeline-phase-label">
+                    <span class="phase-tag">Phase 01</span>
+                    <h3 class="phase-name">The Infinity Saga — Khởi đầu</h3>
+                    <span class="phase-years">2008 – 2012</span>
+                </div>
+
+                <div class="timeline-item" data-order="1" data-type="movie" data-movie-id="iron-man">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card" data-open-modal="iron-man">
+                        <div class="timeline-card-num">01</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Iron Man</h4>
+                            <p class="timeline-card-meta">2008 · Phase 1 · 126 phút</p>
+                            <p class="timeline-card-desc">Tony Stark chế tạo bộ giáp đầu tiên để thoát khỏi tù giam và
+                                trở thành Iron Man — khởi đầu vũ trụ MCU.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Tony Stark</span><span
+                                    class="tl-tag">Pepper Potts</span><span class="tl-tag">Nick Fury</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Iron Man" style="--ph-color:#C0392B;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="2" data-type="movie" data-movie-id="incredible-hulk">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card" data-open-modal="incredible-hulk">
+                        <div class="timeline-card-num">02</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">The Incredible Hulk</h4>
+                            <p class="timeline-card-meta">2008 · Phase 1 · 112 phút</p>
+                            <p class="timeline-card-desc">Bruce Banner cố kiềm chế Hulk trong khi bị quân đội truy đuổi.
+                                Abomination nổi dậy buộc anh phải trở thành quái thú.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Bruce Banner</span><span
+                                    class="tl-tag">Betty Ross</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Hulk" style="--ph-color:#27AE60;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="3" data-type="movie" data-movie-id="iron-man-2">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card" data-open-modal="iron-man-2">
+                        <div class="timeline-card-num">03</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Iron Man 2</h4>
+                            <p class="timeline-card-meta">2010 · Phase 1 · 124 phút</p>
+                            <p class="timeline-card-desc">Tony phải đối mặt với chính phủ, kẻ thù mới Whiplash, và chất
+                                độc palladium ăn mòn cơ thể từ bên trong.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">War Machine</span><span
+                                    class="tl-tag">Black Widow</span><span class="tl-tag">Nick Fury</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Iron Man 2" style="--ph-color:#E74C3C;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="4" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">04</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Thor</h4>
+                            <p class="timeline-card-meta">2011 · Phase 1 · 115 phút</p>
+                            <p class="timeline-card-desc">Thor bị trục xuất khỏi Asgard xuống Trái Đất, phải chứng minh
+                                bản thân xứng đáng cầm búa Mjolnir.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Thor</span><span
+                                    class="tl-tag">Loki</span><span class="tl-tag">Jane Foster</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Thor" style="--ph-color:#1A5276;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="5" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">05</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Captain America: The First Avenger</h4>
+                            <p class="timeline-card-meta">1942–1945 · Phase 1 · 124 phút</p>
+                            <p class="timeline-card-desc">Steve Rogers — người lính nhỏ bé trở thành Super-Soldier,
+                                chiến đấu chống lại HYDRA và Red Skull trong Thế chiến II.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Steve Rogers</span><span
+                                    class="tl-tag">Bucky Barnes</span><span class="tl-tag">Peggy Carter</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Cap. America" style="--ph-color:#154360;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item timeline-item--milestone" data-order="6" data-type="movie">
+                    <div class="timeline-node timeline-node--milestone">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card timeline-card--featured">
+                        <div class="timeline-card-num">06</div>
+                        <div class="timeline-card-milestone-badge">⚡ Sự kiện lớn</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type timeline-card-type--featured">Crossover · Sự kiện Phase
+                                1</span>
+                            <h4 class="timeline-card-title">The Avengers</h4>
+                            <p class="timeline-card-meta">2012 · Phase 1 · 143 phút</p>
+                            <p class="timeline-card-desc">Loki và Tesseract — Nick Fury triệu tập Iron Man, Cap, Thor,
+                                Hulk, Black Widow và Hawkeye. Đội hình Avengers đầu tiên hội tụ bảo vệ Trái Đất.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag tl-tag--red">Loki</span><span
+                                    class="tl-tag">Iron Man</span><span class="tl-tag">Hulk</span><span
+                                    class="tl-tag">Thor</span><span class="tl-tag tl-tag--gem">Space Stone</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Avengers" style="--ph-color:#1A2980;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─────────────────── PHASE 2 ─── -->
+            <div class="timeline-phase" data-phase="2">
+                <div class="timeline-phase-label">
+                    <span class="phase-tag"
+                        style="--phase-tag-clr: #E67E22; --phase-tag-bg: rgba(230,126,34,0.12);">Phase 02</span>
+                    <h3 class="phase-name">The Infinity Saga — Mở rộng</h3>
+                    <span class="phase-years">2013 – 2015</span>
+                </div>
+
+                <div class="timeline-item" data-order="7" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">07</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Iron Man 3</h4>
+                            <p class="timeline-card-meta">2013 · Phase 2 · 130 phút</p>
+                            <p class="timeline-card-desc">Sau sự kiện New York, Tony bị rối loạn tâm lý và phải đối mặt
+                                với Mandarin — kẻ thù bí ẩn nhất từ trước đến nay.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Tony Stark</span><span
+                                    class="tl-tag">Extremis</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Iron Man 3" style="--ph-color:#922B21;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="8" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">08</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Thor: The Dark World</h4>
+                            <p class="timeline-card-meta">2013 · Phase 2 · 112 phút</p>
+                            <p class="timeline-card-desc">Malekith và Dark Elves với Aether (Reality Stone) đe dọa hủy
+                                diệt toàn bộ vũ trụ trong sự kiện Convergence.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Thor</span><span
+                                    class="tl-tag">Loki</span><span class="tl-tag tl-tag--gem">Reality Stone</span>
+                            </div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Thor 2" style="--ph-color:#6C3483;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="9" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">09</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Captain America: The Winter Soldier</h4>
+                            <p class="timeline-card-meta">2014 · Phase 2 · 136 phút</p>
+                            <p class="timeline-card-desc">S.H.I.E.L.D. bị xâm phạm từ bên trong bởi HYDRA. Steve Rogers
+                                phát hiện bạn cũ Bucky Barnes trở thành sát thủ Winter Soldier.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Cap</span><span class="tl-tag">Winter
+                                    Soldier</span><span class="tl-tag">Black Widow</span><span
+                                    class="tl-tag tl-tag--red">HYDRA</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Winter Soldier" style="--ph-color:#1F618D;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="10" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">10</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Guardians of the Galaxy</h4>
+                            <p class="timeline-card-meta">1988/2014 · Phase 2 · 121 phút</p>
+                            <p class="timeline-card-desc">Peter Quill/Star-Lord cùng băng nhóm hỗn tạp — Groot, Rocket,
+                                Gamora, Drax — bảo vệ vũ trụ khỏi Ronan và Power Stone.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Star-Lord</span><span
+                                    class="tl-tag">Groot</span><span class="tl-tag tl-tag--gem">Power Stone</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="GotG" style="--ph-color:#6D4C8E;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="11" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">11</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Avengers: Age of Ultron</h4>
+                            <p class="timeline-card-meta">2015 · Phase 2 · 141 phút</p>
+                            <p class="timeline-card-desc">Tony Stark tạo ra AI Ultron để bảo vệ hòa bình — nhưng Ultron
+                                quyết định xóa sổ loài người. Scarlet Witch và Quicksilver xuất hiện.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Ultron</span><span
+                                    class="tl-tag">Vision</span><span class="tl-tag">Scarlet Witch</span><span
+                                    class="tl-tag tl-tag--gem">Mind Stone</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Age of Ultron" style="--ph-color:#2C3E50;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="12" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">12</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Ant-Man</h4>
+                            <p class="timeline-card-meta">2015 · Phase 2 · 117 phút</p>
+                            <p class="timeline-card-desc">Scott Lang mang bộ giáp Ant-Man co nhỏ người xuống kích thước
+                                côn trùng, thực hiện phi vụ trộm táo bạo nhất lịch sử.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Scott Lang</span><span
+                                    class="tl-tag">Hank Pym</span><span class="tl-tag">Hope Van Dyne</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Ant-Man" style="--ph-color:#117A65;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─────────────────── PHASE 3 ─── -->
+            <div class="timeline-phase" data-phase="3">
+                <div class="timeline-phase-label">
+                    <span class="phase-tag"
+                        style="--phase-tag-clr: #8E44AD; --phase-tag-bg: rgba(142,68,173,0.12);">Phase 03</span>
+                    <h3 class="phase-name">The Infinity Saga — Đỉnh điểm</h3>
+                    <span class="phase-years">2016 – 2019</span>
+                </div>
+
+                <div class="timeline-item" data-order="13" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">13</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Captain America: Civil War</h4>
+                            <p class="timeline-card-meta">2016 · Phase 3 · 147 phút</p>
+                            <p class="timeline-card-desc">Đạo luật Sokovia chia rẽ các Avengers. Team Iron Man vs Team
+                                Cap — Spider-Man lần đầu xuất hiện. Black Panther debut.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Team Cap</span><span
+                                    class="tl-tag">Team Iron Man</span><span class="tl-tag">Spider-Man</span><span
+                                    class="tl-tag">Black Panther</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Civil War" style="--ph-color:#2E4057;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="14" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">14</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Doctor Strange</h4>
+                            <p class="timeline-card-meta">2016 · Phase 3 · 115 phút</p>
+                            <p class="timeline-card-desc">Bác sĩ Stephen Strange từ phẫu thuật thần kinh đến phép thuật
+                                — Eye of Agamotto (Time Stone) và Sorcerer Supreme.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Doctor Strange</span><span
+                                    class="tl-tag">Ancient One</span><span class="tl-tag tl-tag--gem">Time Stone</span>
+                            </div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Dr. Strange" style="--ph-color:#F39C12;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="18" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">18</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Black Panther</h4>
+                            <p class="timeline-card-meta">2018 · Phase 3 · 134 phút</p>
+                            <p class="timeline-card-desc">T'Challa trở về Wakanda làm vua và đối mặt với Killmonger —
+                                câu chuyện về di sản, bản sắc và trách nhiệm.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">T'Challa</span><span
+                                    class="tl-tag">Killmonger</span><span class="tl-tag">Wakanda</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Black Panther" style="--ph-color:#1A237E;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item timeline-item--milestone" data-order="19" data-type="movie">
+                    <div class="timeline-node timeline-node--milestone">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card timeline-card--featured">
+                        <div class="timeline-card-num">19</div>
+                        <div class="timeline-card-milestone-badge">💜 Infinity Stones</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type timeline-card-type--featured">Crossover · Sự kiện tối
+                                thượng</span>
+                            <h4 class="timeline-card-title">Avengers: Infinity War</h4>
+                            <p class="timeline-card-meta">2018 · Phase 3 · 149 phút</p>
+                            <p class="timeline-card-desc">Thanos thu thập 6 Infinity Stones. Toàn bộ MCU hội tụ nhưng
+                                Thanos thực hiện Snap — xóa sổ một nửa sinh linh vũ trụ.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag tl-tag--red">Thanos</span><span
+                                    class="tl-tag tl-tag--gem">6 Infinity Stones</span><span class="tl-tag">The
+                                    Snap</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Infinity War" style="--ph-color:#4A235A;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="22" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card timeline-card--endgame">
+                        <div class="timeline-card-num">22</div>
+                        <div class="timeline-card-milestone-badge" style="background: var(--clr-gold); color: #000;">🏆
+                            Finales</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type timeline-card-type--featured">Crossover · Grand
+                                Finale</span>
+                            <h4 class="timeline-card-title">Avengers: Endgame</h4>
+                            <p class="timeline-card-meta">2018–2023 · Phase 3 · 181 phút</p>
+                            <p class="timeline-card-desc">5 năm sau Snap, các Avengers còn lại thực hiện Time Heist
+                                xuyên suốt multiverse để thu hồi các Infinity Stones. Trận chiến cuối cùng. <em>"I am
+                                    Iron Man."</em></p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Time Heist</span><span
+                                    class="tl-tag">Tony Stark</span><span class="tl-tag tl-tag--red">Thanos</span><span
+                                    class="tl-tag">Iron Man dies</span><span class="tl-tag tl-tag--gem">Soul Stone</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Endgame"
+                                style="--ph-color:#0D0D0D; border: 1px solid rgba(226,54,54,0.3);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─────────────────── PHASE 4 ─── -->
+            <div class="timeline-phase" data-phase="4">
+                <div class="timeline-phase-label">
+                    <span class="phase-tag"
+                        style="--phase-tag-clr: #00d4ff; --phase-tag-bg: rgba(0,212,255,0.08);">Phase 04</span>
+                    <h3 class="phase-name">Multiverse Saga — Thế giới mới</h3>
+                    <span class="phase-years">2021 – 2022</span>
+                </div>
+
+                <div class="timeline-item" data-order="23" data-type="series">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">23</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Disney+ Series</span>
+                            <h4 class="timeline-card-title">WandaVision</h4>
+                            <p class="timeline-card-meta">2021 · Phase 4 · 9 tập · Disney+</p>
+                            <p class="timeline-card-desc">Wanda tạo ra Hex — thực tế giả tạo mang phong cách sitcom qua
+                                các thập kỷ. Giới thiệu Scarlet Witch toàn năng và Monica Rambeau.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Scarlet Witch</span><span
+                                    class="tl-tag">Vision</span><span class="tl-tag">Agatha Harkness</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="WandaVision" style="--ph-color:#1E8449;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="24" data-type="series">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">24</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Disney+ Series</span>
+                            <h4 class="timeline-card-title">The Falcon and the Winter Soldier</h4>
+                            <p class="timeline-card-meta">2021 · Phase 4 · 6 tập · Disney+</p>
+                            <p class="timeline-card-desc">Sam Wilson đối mặt với di sản Captain America. John Walker trở
+                                thành Cap mới. Zemo và Flag Smashers.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Sam Wilson</span><span
+                                    class="tl-tag">Bucky Barnes</span><span class="tl-tag">Zemo</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="FATWS" style="--ph-color:#154360;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="25" data-type="series">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card timeline-card--featured">
+                        <div class="timeline-card-num">25</div>
+                        <div class="timeline-card-milestone-badge"
+                            style="background: rgba(0,212,255,0.15); color: var(--clr-cyan); border: 1px solid rgba(0,212,255,0.3);">
+                            🌌 Multiverse mở</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type timeline-card-type--cyan">Disney+ Series · Key</span>
+                            <h4 class="timeline-card-title">Loki (Season 1 & 2)</h4>
+                            <p class="timeline-card-meta">2021 – 2023 · Phase 4-5 · 12 tập · Disney+</p>
+                            <p class="timeline-card-desc">TVA — Time Variance Authority. Loki khám phá Sacred Timeline
+                                và gặp Kang the Conqueror. Multiverse chính thức mở ra. He Who Remains.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Loki</span><span
+                                    class="tl-tag tl-tag--red">Kang</span><span class="tl-tag">TVA</span><span
+                                    class="tl-tag">Multiverse</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Loki" style="--ph-color:#2471A3;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="28" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">28</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Spider-Man: No Way Home</h4>
+                            <p class="timeline-card-meta">2021 · Phase 4 · 148 phút</p>
+                            <p class="timeline-card-desc">Doctor Strange mở multiverse — các phản diện và Spider-Man từ
+                                vũ trụ khác đổ bộ. Ba Peter Parker cùng chiến đấu. Tobey. Andrew. Tom.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Peter Parker</span><span
+                                    class="tl-tag">3 Spider-Men</span><span class="tl-tag">Multiverse</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="No Way Home" style="--ph-color:#E74C3C;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─────────────────── PHASE 5 ─── -->
+            <div class="timeline-phase" data-phase="5">
+                <div class="timeline-phase-label">
+                    <span class="phase-tag"
+                        style="--phase-tag-clr: #9B59B6; --phase-tag-bg: rgba(155,89,182,0.1);">Phase 05</span>
+                    <h3 class="phase-name">Multiverse Saga — Kang Dynasty</h3>
+                    <span class="phase-years">2023 – 2024</span>
+                </div>
+
+                <div class="timeline-item" data-order="30" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">30</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Ant-Man and the Wasp: Quantumania</h4>
+                            <p class="timeline-card-meta">2023 · Phase 5 · 125 phút</p>
+                            <p class="timeline-card-desc">Scott Lang bị kéo vào Quantum Realm và đối mặt với Kang the
+                                Conqueror — kẻ chinh phục thời gian đáng sợ nhất MCU.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Ant-Man</span><span
+                                    class="tl-tag">Wasp</span><span class="tl-tag tl-tag--red">Kang</span><span
+                                    class="tl-tag">Quantum Realm</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Quantumania" style="--ph-color:#1F618D;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="31" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card timeline-card--featured">
+                        <div class="timeline-card-num">31</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type timeline-card-type--featured">Phim điện ảnh · Hay nhất Phase
+                                5</span>
+                            <h4 class="timeline-card-title">Guardians of the Galaxy Vol. 3</h4>
+                            <p class="timeline-card-meta">2023 · Phase 5 · 150 phút</p>
+                            <p class="timeline-card-desc">Hành trình của Rocket — bí ẩn về quá khứ bi thảm. High
+                                Evolutionary. Lời chia tay đẫm nước mắt nhất của MCU với nhóm Guardians.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Rocket</span><span
+                                    class="tl-tag">Groot</span><span class="tl-tag">Adam Warlock</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="GotG 3" style="--ph-color:#922B21;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-order="32" data-type="movie">
+                    <div class="timeline-node">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-card-num">32</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Phim điện ảnh</span>
+                            <h4 class="timeline-card-title">Captain America: Brave New World</h4>
+                            <p class="timeline-card-meta">2025 · Phase 5 · 118 phút</p>
+                            <p class="timeline-card-desc">Sam Wilson chính thức trở thành Captain America mới. Red Hulk
+                                xuất hiện. Câu chuyện quyền lực chính trị phức tạp.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag">Sam Wilson</span><span
+                                    class="tl-tag">Red Hulk</span><span class="tl-tag">Thaddeus Ross</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Brave New World" style="--ph-color:#1A5276;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─────────────────── PHASE 6 (upcoming) ─── -->
+            <div class="timeline-phase timeline-phase--upcoming" data-phase="6">
+                <div class="timeline-phase-label">
+                    <span class="phase-tag"
+                        style="--phase-tag-clr: #00d4ff; --phase-tag-bg: rgba(0,212,255,0.08);">Phase 06</span>
+                    <h3 class="phase-name">Multiverse Saga — Secret Wars</h3>
+                    <span class="phase-years">2025 – 2026+</span>
+                </div>
+
+                <div class="timeline-item" data-order="33" data-type="movie">
+                    <div class="timeline-node timeline-node--upcoming">
+                        <div class="timeline-node-inner"></div>
+                    </div>
+                    <div class="timeline-card timeline-card--upcoming">
+                        <div class="timeline-card-num">33+</div>
+                        <div class="timeline-card-body">
+                            <span class="timeline-card-type">Sắp ra mắt</span>
+                            <h4 class="timeline-card-title">Avengers: Doomsday</h4>
+                            <p class="timeline-card-meta">2026 · Phase 6 · TBA</p>
+                            <p class="timeline-card-desc">Cuộc hội tụ chưa từng có trong lịch sử MCU. Doom, Kang, và
+                                toàn bộ các anh hùng của Multiverse Saga.</p>
+                            <div class="timeline-card-tags"><span class="tl-tag tl-tag--upcoming">Sắp ra mắt</span><span
+                                    class="tl-tag">Doom</span><span class="tl-tag">Kang Variants</span></div>
+                        </div>
+                        <div class="timeline-card-poster">
+                            <div class="poster-placeholder" data-title="Doomsday"
+                                style="--ph-color:#1a1a1a; border: 1px solid rgba(0,212,255,0.2);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -437,10 +1048,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Truyền base_url vào JS qua biến global -->
     <script>
         window.MCU_BASE_URL = '<?= base_url() ?>';
-        window.MCU_API      = '<?= base_url('api') ?>';
+        window.MCU_API      = '<?= site_url('api') ?>';
     </script>
     <script src="<?= base_url('script.js') ?>"></script>
     <script src="<?= base_url('script-part2.js') ?>"></script>
 
 </body>
 </html>
+
