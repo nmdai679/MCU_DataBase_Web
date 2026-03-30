@@ -72,7 +72,7 @@
                     posterUrl: m.poster_url,
                     connections: [],   // có thể mở rộng sau
                     watchUrl: 'https://disneyplus.com',
-                    trailerUrl: 'https://youtube.com',
+                    trailerUrl: 'https://www.youtube.com/watch?v=8TZMtslA3UY&pp=ygUgc3BpZGVyIG1hbiBicmFuZCBuZXcgZGF5IHRyYWlsZXI%3D',
                 };
             });
 
@@ -188,6 +188,7 @@
                 <div class="char-card-bg" style="--char-clr: ${c.bg_color};"></div>
                 <div class="char-card-avatar">
                     <div class="char-avatar-placeholder" style="--av-clr: ${c.bg_color};">${c.avatar_initials}</div>
+                    ${c.avatar_url ? `<img src="${window.MCU_BASE_URL}${c.avatar_url}" alt="${c.name}" class="char-avatar-img">` : ''}
                 </div>
                 <div class="char-card-info">
                     <h4 class="char-name">${c.name}</h4>
