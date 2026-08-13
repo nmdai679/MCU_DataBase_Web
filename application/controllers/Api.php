@@ -88,6 +88,17 @@ class Api extends CI_Controller
                 (bool)(int) $c['phase_5'],
                 (bool)(int) $c['phase_6'],
             ];
+            // Tự động bổ sung avatar_url nếu DB chưa có cột này
+            if (empty($c['avatar_url'])) {
+                if ($c['slug'] === 'thor') {
+                    $c['avatar_url'] = 'assets/images/characters/thor-odinson.jpg';
+                } elseif ($c['slug'] === 'iron-man') {
+                    $c['avatar_url'] = 'assets/images/characters/iron-man.jpg';
+                } else {
+                    $c['avatar_url'] = 'assets/images/characters/' . $c['slug'] . '.webp';
+                }
+            }
+
             // Xóa các cột riêng lẻ
             unset($c['phase_1'], $c['phase_2'], $c['phase_3'],
                   $c['phase_4'], $c['phase_5'], $c['phase_6']);

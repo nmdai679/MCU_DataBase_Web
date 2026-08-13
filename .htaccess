@@ -1,4 +1,4 @@
-Options -Indexes
+# Options -Indexes (Vô hiệu hóa Options directive để tránh lỗi 500 trên InfinityFree)
 <IfModule mod_rewrite.c>
     RewriteEngine On
 

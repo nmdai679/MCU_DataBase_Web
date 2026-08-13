@@ -1,14 +1,5 @@
--- ============================================================
---  MCU UNIVERSE DATABASE
---  Đồ án giữa kỳ — CodeIgniter 3 + MySQL
---  Import: phpMyAdmin > Import > chọn file này
--- ============================================================
 
-CREATE DATABASE IF NOT EXISTS `mcu_database`
-    CHARACTER SET utf8mb4
-    COLLATE utf8mb4_unicode_ci;
 
-USE `mcu_database`;
 
 -- ─────────────────────────────────────────────────────────────
 --  BẢNG phases
@@ -68,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
     `status_label`    VARCHAR(80)     NOT NULL DEFAULT 'Đang hoạt động',
     `bg_color`        VARCHAR(10)     NOT NULL DEFAULT '#333333',
     `avatar_initials` VARCHAR(4)      NOT NULL DEFAULT '',
+    `avatar_url`      VARCHAR(500)    NOT NULL DEFAULT '',
     `phase_1`         TINYINT(1)      NOT NULL DEFAULT 0,
     `phase_2`         TINYINT(1)      NOT NULL DEFAULT 0,
     `phase_3`         TINYINT(1)      NOT NULL DEFAULT 0,
@@ -152,29 +144,29 @@ VALUES
 -- ─── characters ──────────────────────────────────────────────
 INSERT INTO `characters`
     (`slug`, `name`, `alter_ego`, `status`, `status_label`,
-     `bg_color`, `avatar_initials`,
+     `bg_color`, `avatar_initials`, `avatar_url`,
      `phase_1`, `phase_2`, `phase_3`, `phase_4`, `phase_5`, `phase_6`)
 VALUES
 ('iron-man',         'Iron Man',        'Tony Stark',                'deceased', 'Đã hi sinh · Endgame',
- '#E23636', 'IM', 1, 1, 1, 0, 0, 0),
+ '#E23636', 'IM', 'assets/images/characters/iron-man.jpg', 1, 1, 1, 0, 0, 0),
 
 ('captain-america',  'Captain America', 'Steve Rogers → Sam Wilson', 'active',   'Đang hoạt động',
- '#2E86C1', 'CA', 1, 1, 1, 1, 1, 0),
+ '#2E86C1', 'CA', 'assets/images/characters/captain-america.webp', 1, 1, 1, 1, 1, 0),
 
 ('thor',             'Thor Odinson',    'God of Thunder',            'active',   'Đang hoạt động',
- '#1A5276', 'TH', 1, 1, 1, 1, 1, 0),
+ '#1A5276', 'TH', 'assets/images/characters/thor-odinson.jpg', 1, 1, 1, 1, 1, 0),
 
 ('scarlet-witch',    'Scarlet Witch',   'Wanda Maximoff',            'unknown',  'Không xác định',
- '#922B21', 'SW', 0, 1, 1, 1, 0, 0),
+ '#922B21', 'SW', 'assets/images/characters/scarlet-witch.webp', 0, 1, 1, 1, 0, 0),
 
 ('doctor-strange',   'Doctor Strange',  'Stephen Strange',           'active',   'Đang hoạt động',
- '#F39C12', 'DS', 0, 0, 1, 1, 1, 0),
+ '#F39C12', 'DS', 'assets/images/characters/doctor-strange.webp', 0, 0, 1, 1, 1, 0),
 
 ('spider-man',       'Spider-Man',      'Peter Parker',              'active',   'Đang hoạt động',
- '#E74C3C', 'SP', 0, 0, 1, 1, 1, 1),
+ '#E74C3C', 'SP', 'assets/images/characters/spider-man.webp', 0, 0, 1, 1, 1, 1),
 
 ('loki',             'Loki',            'God of Mischief',           'special',  'God of Stories',
- '#1E8449', 'LK', 1, 1, 1, 1, 1, 0),
+ '#1E8449', 'LK', 'assets/images/characters/loki.webp', 1, 1, 1, 1, 1, 0),
 
 ('thanos',           'Thanos',          'The Mad Titan',             'deceased', 'Đã bị tiêu diệt',
- '#6C3483', 'TN', 0, 1, 1, 0, 0, 0);
+ '#6C3483', 'TN', 'assets/images/characters/thanos.webp', 0, 1, 1, 0, 0, 0);
